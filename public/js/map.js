@@ -2,6 +2,16 @@ mapboxgl.accessToken = mapToken;
 
 const map = new mapboxgl.Map({
   container: "map",
-  center: [-71.06776, 42.35816],
+  style: "mapbox://styles/mapbox/streets-v12",
+  center: listing.geometry.coordinates,
   zoom: 9,
 });
+
+const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+  `<h4>${listing.location}</h4><p>Exact Location provided after booking</p>`,
+);
+
+const marker = new mapboxgl.Marker({ color: "red" })
+  .setLngLat(listing.geometry.coordinates)
+  .setPopup(popup)
+  .addTo(map);
